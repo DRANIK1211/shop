@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Shop" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:windowBackground">@color/backgroundTheme</item>
+    </style>
+
+    <style name="Base.SplashScreen" parent="Base.Theme.SplashScreen" />
+</resources>
