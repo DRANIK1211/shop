@@ -4,6 +4,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,9 +18,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -33,6 +37,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
@@ -51,13 +57,22 @@ val popularCart = ProductCart(
     name = "Nike Air Max",
     price = "752.00"
 )
-
+val popularCart1 = ProductCart(
+    image = "asdasd",
+    favorites = false,
+    inCart = true,
+    status = "Best Seller",
+    name = "Nike Air Max",
+    price = "752.00"
+)
 
 @Composable
 fun HomeScreen(){
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp)
+        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp).verticalScroll(
+            state = rememberScrollState()
+        )
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -114,7 +129,11 @@ fun HomeScreen(){
                     )
                 },
                 placeholder = {
-                    Text("Поиск", color = Color(106, 106, 106), fontSize = 12.sp, fontWeight = FontWeight(400))
+                    Text(
+                        text = "Поиск",
+                        color = Color(106, 106, 106),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400))
                 }
             )
             Image(
@@ -201,16 +220,47 @@ fun HomeScreen(){
         }
 
         Row (
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(top=30.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             Popular(popularCart)
-            Popular(popularCart)
+            Popular(popularCart1)
         }
 //asd
-        Row {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(top=29.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+
+        ) {
+
+            Text(
+                text = "Акции",
+                fontSize = 16.sp,
+                fontWeight = FontWeight(400),
+
+                )
+            Text(
+                text = "Все",
+                fontSize = 12.sp,
+                fontWeight = FontWeight(400),
+                color = Color(72, 178, 231)
+            )
 
         }
+
+        Image(
+            painter = painterResource(R.drawable.special),
+            contentDescription = null,
+            modifier = Modifier.fillMaxWidth().padding(top=20.dp),
+            contentScale = ContentScale.FillWidth
+        )
+        Image(
+            painter = painterResource(R.drawable.special),
+            contentDescription = null,
+            modifier = Modifier.fillMaxWidth().padding(top=20.dp),
+            contentScale = ContentScale.FillWidth
+        )
     }
 
 }

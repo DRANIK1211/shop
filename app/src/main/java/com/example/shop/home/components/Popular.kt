@@ -48,7 +48,7 @@ data class ProductCart(
 fun Popular(cart: ProductCart){
     Card (
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        modifier = Modifier.width(160.dp).height(182.dp)
+        modifier = Modifier.width(160.dp)//.height(182.dp)
             .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(16.dp))),
         //verticalArrangement = Arrangement.SpaceBetween,
 
@@ -96,9 +96,12 @@ fun Popular(cart: ProductCart){
                 modifier = Modifier.padding(start = 9.dp),
                 textAlign = TextAlign.End
             )
-
+            var im = ImageVector.vectorResource(R.drawable.add)
+            if (cart.inCart == true){
+                im = ImageVector.vectorResource(R.drawable.incart)
+            }
             Image(
-                imageVector = ImageVector.vectorResource(R.drawable.add),
+                imageVector = im,
                 contentDescription = null
             )
         }
