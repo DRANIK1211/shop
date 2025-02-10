@@ -48,7 +48,7 @@ data class ProductCart(
 fun Popular(cart: ProductCart){
     Card (
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        modifier = Modifier.width(160.dp)//.height(182.dp)
+        modifier = Modifier.width(150.dp)//.height(182.dp)
             .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(16.dp))),
         //verticalArrangement = Arrangement.SpaceBetween,
 
