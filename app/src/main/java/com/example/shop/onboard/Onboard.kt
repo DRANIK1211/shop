@@ -29,9 +29,14 @@ import androidx.compose.ui.unit.sp
 import com.example.shop.onboard.components.Onboard1
 import com.example.shop.onboard.components.Onboard2
 import com.example.shop.onboard.components.Onboard3
+import kotlinx.serialization.Serializable
+
+
+@Serializable
+object Onboard
 
 @Composable
-fun Onboard(){
+fun OnboardScreen(){
     var flag by remember { mutableIntStateOf(1) }
     Column(
         modifier = Modifier.fillMaxSize().background(

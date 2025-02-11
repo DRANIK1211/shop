@@ -70,7 +70,7 @@ val popularCart1 = ProductCart(
 fun HomeScreen(){
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp).verticalScroll(
+        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, bottom = 100.dp).verticalScroll(
             state = rememberScrollState()
         )
     ) {
@@ -249,12 +249,6 @@ fun HomeScreen(){
 
         }
 
-        Image(
-            painter = painterResource(R.drawable.special),
-            contentDescription = null,
-            modifier = Modifier.fillMaxWidth().padding(top=20.dp),
-            contentScale = ContentScale.FillWidth
-        )
         Image(
             painter = painterResource(R.drawable.special),
             contentDescription = null,

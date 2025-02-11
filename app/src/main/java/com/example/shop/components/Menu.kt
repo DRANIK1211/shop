@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
@@ -27,11 +28,13 @@ import com.example.shop.R
 import com.example.shop.ui.theme.ShopTheme
 
 @Composable
-fun Menu() {
+fun Menu(modifier: Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(106.dp)
+            .padding(bottom = 0.dp)
+
             //.background(Color.Gray),
     ) {
         Image(
@@ -59,14 +62,46 @@ fun Menu() {
         }
         Row (
             modifier = Modifier.fillMaxWidth().height(106.dp),
-            horizontalArrangement = Arrangement.SpaceAround,
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ){
-            Row {
-                Text("dsfsd")
+            Row (
+                modifier = Modifier.width(120.dp),
+                horizontalArrangement = Arrangement.SpaceAround
+            ){
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.home_active),
+                    contentDescription = null,
+                    modifier = Modifier.width(24.dp).height(24.dp).clickable {
+
+                    }
+                )
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.favorites_disactive),
+                    contentDescription = null,
+                    modifier = Modifier.width(24.dp).height(24.dp).clickable {
+
+                    }
+                )
             }
-            Row {
-                Text("dsfsd")
+            Row (
+                modifier = Modifier.width(120.dp),
+                horizontalArrangement = Arrangement.SpaceAround
+            ){
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.notification_disactive),
+                    contentDescription = null,
+                    modifier = Modifier.width(24.dp).height(24.dp).clickable {
+
+                    }
+                )
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.profile_disactive),
+                    contentDescription = null,
+                    modifier = Modifier.width(24.dp).height(24.dp).clickable {
+
+                    }
+                )
             }
         }
 
@@ -77,7 +112,7 @@ fun Menu() {
 @Composable
 fun MenuPreview() {
     ShopTheme {
-        Menu()
+        Menu(modifier = Modifier)
     }
 
 }
