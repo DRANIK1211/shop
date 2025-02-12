@@ -1,4 +1,4 @@
-package com.example.shop.onboard.components
+package com.example.shop.presentation.onboard.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

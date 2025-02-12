@@ -1,4 +1,4 @@
-package com.example.shop.onboard
+package com.example.shop.presentation.onboard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,9 +26,11 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.shop.onboard.components.Onboard1
-import com.example.shop.onboard.components.Onboard2
-import com.example.shop.onboard.components.Onboard3
+import androidx.navigation.NavController
+import com.example.shop.presentation.home.HomeSc
+import com.example.shop.presentation.onboard.components.Onboard1
+import com.example.shop.presentation.onboard.components.Onboard2
+import com.example.shop.presentation.onboard.components.Onboard3
 import kotlinx.serialization.Serializable
 
 
@@ -36,7 +38,7 @@ import kotlinx.serialization.Serializable
 object Onboard
 
 @Composable
-fun OnboardScreen(){
+fun OnboardScreen(navController: NavController){
     var flag by remember { mutableIntStateOf(1) }
     Column(
         modifier = Modifier.fillMaxSize().background(
@@ -77,7 +79,7 @@ fun OnboardScreen(){
                         flag = 3
                     }
                     3 -> {
-                        flag = 0
+                        navController.navigate(HomeSc)
                     }
                 }
             },
@@ -108,5 +110,5 @@ fun OnboardScreen(){
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
 fun OnboardPreview(){
-    Onboard()
+
 }

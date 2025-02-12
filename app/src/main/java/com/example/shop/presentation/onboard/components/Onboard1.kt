@@ -1,4 +1,4 @@
-package com.example.shop.onboard.components
+package com.example.shop.presentation.onboard.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -25,8 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.shop.R
 
+
 @Composable
-fun Onboard3() {
+fun Onboard1() {
 
     Column (
         modifier = Modifier.fillMaxWidth(),
@@ -37,36 +38,32 @@ fun Onboard3() {
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-
+            Text(
+                text = "Добро пожаловать",
+                fontSize = 30.sp,
+                fontWeight = FontWeight(400),
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                modifier = Modifier.padding(bottom = 130.dp, start = 50.dp, end = 58.dp)
+            )
             Image(
-                painter = painterResource(R.drawable.onboard3),
+                painter = painterResource(R.drawable.onboard1),
                 contentDescription = null,
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.FillWidth
             )
-            Text(
-                text = "У Вас Есть Сила, Чтобы",
-                fontSize = 34.sp,
-                fontWeight = FontWeight(400),
-                textAlign = TextAlign.Center,
-                color = Color.White,
-                modifier = Modifier.padding(top = 60.dp, start = 30.dp, end = 30.dp)
-            )
-            Text(
-                text = "В вашей комнате много красивых и привлекательных растений",
-                fontSize = 16.sp,
-                fontWeight = FontWeight(400),
-                textAlign = TextAlign.Center,
-                color = Color.White,
-                modifier = Modifier.padding(top = 12.dp, start = 30.dp, end = 30.dp)
-            )
             Row(
-                modifier = Modifier.padding(top = 40.dp)
+                modifier = Modifier.padding(top = 26.dp)
             ) {
 
-
                 HorizontalDivider(
-                    modifier = Modifier.width(23.dp)
+                    modifier = Modifier.width(43.dp)
+                        .clip(CircleShape),
+                    color = Color.White,
+                    thickness = 10.dp
+                )
+                HorizontalDivider(
+                    modifier = Modifier.width(35.dp).padding(start = 12.dp)
                         .clip(CircleShape),
                     color = Color(43, 107, 139),
                     thickness = 10.dp
@@ -77,13 +74,6 @@ fun Onboard3() {
                     color = Color(43, 107, 139),
                     thickness = 10.dp
                 )
-                HorizontalDivider(
-                    modifier = Modifier.width(55.dp).padding(start = 12.dp)
-                        .clip(CircleShape),
-                    color = Color.White,
-                    thickness = 10.dp
-                )
-
             }
         }
 
@@ -94,6 +84,6 @@ fun Onboard3() {
 
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
-fun Onboard3Preview() {
-    Onboard3()
+fun Onboard1Preview() {
+    Onboard1()
 }

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.Shop" parent="android:Theme.Material.Light.NoActionBar" >
+    <style name="Theme.Shop" parent="android:Theme.Material.Light.NoActionBar.Fullscreen" >
         <item name="android:windowBackground">@color/backgroundTheme</item>
     </style>
 
-    <style name="Base.SplashScreen" parent="Base.Theme.SplashScreen" />
+    <style name="Base.SplashScreen" parent="Base.Theme.SplashScreen">
+        <item name="android:windowSplashScreenBackground" >@color/background</item>
+        <item name="android:windowSplashScreenAnimatedIcon" >@drawable/logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.Shop</item>
+    </style>
+
 </resources>

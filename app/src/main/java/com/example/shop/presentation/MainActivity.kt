@@ -1,4 +1,4 @@
-package com.example.shop
+package com.example.shop.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,19 +16,20 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.shop.components.Menu
-import com.example.shop.home.HomeScreen
-import com.example.shop.onboard.Onboard
-import com.example.shop.onboard.OnboardScreen
-import com.example.shop.ui.theme.ShopTheme
+import com.example.shop.presentation.components.Menu
+import com.example.shop.presentation.home.HomeSc
+import com.example.shop.presentation.home.HomeScreen
+import com.example.shop.presentation.onboard.Onboard
+import com.example.shop.presentation.onboard.OnboardScreen
+import com.example.shop.presentation.theme.ShopTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        installSplashScreen()
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         actionBar?.hide()
+
+        super.onCreate(savedInstanceState)
+        installSplashScreen()
+        enableEdgeToEdge()
 
         setContent {
             val navController = rememberNavController( )
@@ -40,13 +41,17 @@ class MainActivity : ComponentActivity() {
                     ){
                         NavHost(navController = navController, startDestination = Onboard){
                             composable<Onboard> {
-                                OnboardScreen()
+                                OnboardScreen(navController)
+                            }
+                            composable<HomeSc> {
+                                Box{
+                                    HomeScreen()
+                                    Menu(modifier = Modifier.align(Alignment.BottomCenter))
+                                }
+
                             }
                         }
-                        Menu(
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                        )
+
                     }
 
                 }
