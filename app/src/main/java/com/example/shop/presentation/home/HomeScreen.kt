@@ -2,6 +2,7 @@ package com.example.shop.presentation.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,9 +38,12 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.shop.R
-import com.example.shop.presentation.home.components.Popular
-import com.example.shop.presentation.home.components.ProductCart
+import com.example.shop.presentation.catalog.CatalogSc
+import com.example.shop.presentation.components.Popular
+import com.example.shop.presentation.components.ProductCart
+import com.example.shop.presentation.popular.PopularSc
 import kotlinx.serialization.Serializable
 
 val popularCart = ProductCart(
@@ -63,10 +67,10 @@ val popularCart1 = ProductCart(
 data object HomeSc
 
 @Composable
-fun HomeScreen(){
+fun HomeScreen(navController: NavController){
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, bottom = 100.dp).verticalScroll(
+        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, bottom = 30.dp).verticalScroll(
             state = rememberScrollState()
         )
     ) {
@@ -154,39 +158,55 @@ fun HomeScreen(){
             ){
                 item {
                     Box(
-                        modifier = Modifier.height(40.dp).width(108.dp)
+                        modifier = Modifier.height(40.dp).width(108.dp).clickable {
+                            navController.navigate("CatalogSc/Все")
+                        }
                             .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(8.dp))),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Все"
+                            text = "Все",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight(400)
                         )
                     }
                     Box(
-                        modifier = Modifier.height(40.dp).width(134.dp).padding(start = 16.dp)
+                        modifier = Modifier.height(40.dp).width(134.dp).padding(start = 16.dp).clickable {
+                            navController.navigate("CatalogSc/Outdoor")
+                        }
                             .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(8.dp))),
                         contentAlignment = Alignment.Center
                     ){
                         Text(
-                            text = "Outdoor"
+                            text = "Outdoor",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight(400)
                         )
                     }
                     Box(
-                        modifier = Modifier.height(40.dp).width(134.dp).padding(start = 16.dp)
+                        modifier = Modifier.height(40.dp).width(134.dp).padding(start = 16.dp).clickable {
+                            navController.navigate("CatalogSc/Tennis")
+                        }
                             .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(8.dp))),
                         contentAlignment = Alignment.Center
                     ){
                         Text(
-                            text = "Tennis"
+                            text = "Tennis",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight(400)
                         )
                     }
                     Box(
-                        modifier = Modifier.height(40.dp).width(134.dp).padding(start = 16.dp)
+                        modifier = Modifier.height(40.dp).width(134.dp).padding(start = 16.dp).clickable {
+                            navController.navigate("CatalogSc/Running")
+                        }
                             .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(8.dp))),
                         contentAlignment = Alignment.Center
                     ){
                         Text(
-                            text = "Running"
+                            text = "Running",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight(400)
                         )
                     }
                 }
@@ -210,7 +230,10 @@ fun HomeScreen(){
                 text = "Все",
                 fontSize = 12.sp,
                 fontWeight = FontWeight(400),
-                color = Color(72, 178, 231)
+                color = Color(72, 178, 231),
+                modifier = Modifier.clickable {
+                    navController.navigate(PopularSc)
+                }
             )
 
         }
@@ -259,5 +282,4 @@ fun HomeScreen(){
 @Preview(showSystemUi = true, device = Devices.PIXEL_4)
 @Composable
 fun HomeScreenPreview(){
-    HomeScreen()
 }

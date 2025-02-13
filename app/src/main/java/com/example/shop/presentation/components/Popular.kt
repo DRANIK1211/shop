@@ -1,4 +1,4 @@
-package com.example.shop.presentation.home.components
+package com.example.shop.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
