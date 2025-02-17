@@ -20,6 +20,9 @@ import com.example.shop.presentation.catalog.CatalogSc
 import com.example.shop.presentation.catalog.CatalogScreen
 import com.example.shop.presentation.catalog.CatalogScreenPreview
 import com.example.shop.presentation.components.Menu
+import com.example.shop.presentation.details.DetailsScreen
+import com.example.shop.presentation.favorites.FavoriteSc
+import com.example.shop.presentation.favorites.FavoriteScreen
 import com.example.shop.presentation.home.HomeSc
 import com.example.shop.presentation.home.HomeScreen
 import com.example.shop.presentation.onboard.Onboard
@@ -52,7 +55,7 @@ class MainActivity : ComponentActivity() {
                                 Box{
                                     HomeScreen(navController = navController)
                                     Menu(modifier = Modifier.align(Alignment.BottomCenter),
-                                        navController = navController)
+                                        navController = navController, flag = 1)
                                 }
                             }
                             composable<PopularSc>{
@@ -64,6 +67,17 @@ class MainActivity : ComponentActivity() {
                             composable("CatalogSc/{flag}") { backStackEntry ->
                                 val param = backStackEntry.arguments?.getString("flag").toString()
                                 CatalogScreen(navController, param)
+                            }
+                            composable<FavoriteSc> {
+                                Box{
+                                    FavoriteScreen(navController = navController)
+                                    Menu(modifier = Modifier.align(Alignment.BottomCenter),
+                                        navController = navController, flag = 2)
+                                }
+                            }
+                            composable("Details/{flag}") { backStackEntry ->
+                                val param = backStackEntry.arguments?.getString("flag").toString()
+                                DetailsScreen(navController = navController, id = param)
                             }
                         }
 

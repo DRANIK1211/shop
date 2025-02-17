@@ -22,11 +22,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.shop.R
+import com.example.shop.presentation.favorites.FavoriteSc
+import com.example.shop.presentation.favorites.FavoriteScreen
+import com.example.shop.presentation.home.HomeSc
 import com.example.shop.presentation.popular.PopularSc
 import com.example.shop.presentation.theme.ShopTheme
 
 @Composable
-fun Menu(modifier: Modifier, navController: NavController) {
+fun Menu(modifier: Modifier, navController: NavController, flag: Int) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -66,17 +69,19 @@ fun Menu(modifier: Modifier, navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceAround
             ){
                 Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.home_active),
+                    imageVector = if (flag==1) ImageVector.vectorResource(R.drawable.home_active)
+                    else ImageVector.vectorResource(R.drawable.homedis),
                     contentDescription = null,
                     modifier = Modifier.width(24.dp).height(24.dp).clickable {
-
+                        navController.navigate(HomeSc)
                     }
                 )
                 Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.favorites_disactive),
+                    imageVector = if (flag==2) ImageVector.vectorResource(R.drawable.favoriteactive)
+                    else ImageVector.vectorResource(R.drawable.favorites_disactive),
                     contentDescription = null,
                     modifier = Modifier.width(24.dp).height(24.dp).clickable {
-                        navController.navigate(PopularSc)
+                        navController.navigate(FavoriteSc)
                     }
                 )
             }
@@ -85,14 +90,16 @@ fun Menu(modifier: Modifier, navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceAround
             ){
                 Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.notification_disactive),
+                    imageVector = if (flag==3) ImageVector.vectorResource(R.drawable.noticactive)
+                    else ImageVector.vectorResource(R.drawable.notification_disactive),
                     contentDescription = null,
                     modifier = Modifier.width(24.dp).height(24.dp).clickable {
 
                     }
                 )
                 Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.profile_disactive),
+                    imageVector = if (flag==4) ImageVector.vectorResource(R.drawable.profileactive)
+                    else ImageVector.vectorResource(R.drawable.profile_disactive),
                     contentDescription = null,
                     modifier = Modifier.width(24.dp).height(24.dp).clickable {
 

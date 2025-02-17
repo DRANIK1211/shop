@@ -48,7 +48,8 @@ fun PopularScreen(navController: NavController) {
             inCart = false,
             status = "Best Seller",
             name = "Nike Air Max",
-            price = "752.00"
+            price = "752.00",
+            id = "123"
         ),
         ProductCart(
             image = "asdasd",
@@ -56,7 +57,8 @@ fun PopularScreen(navController: NavController) {
             inCart = false,
             status = "Best Seller",
             name = "Nike Air Max",
-            price = "752.00"
+            price = "752.00",
+            id = "123"
         ),
         ProductCart(
             image = "asdasd",
@@ -64,7 +66,8 @@ fun PopularScreen(navController: NavController) {
             inCart = false,
             status = "Best Seller",
             name = "Nike Air Max",
-            price = "752.00"
+            price = "752.00",
+            id = "123"
         ),
         ProductCart(
             image = "asdasd",
@@ -72,7 +75,8 @@ fun PopularScreen(navController: NavController) {
             inCart = false,
             status = "Best Seller",
             name = "Nike Air Max",
-            price = "752.00"
+            price = "752.00",
+            id = "123"
         ),
         ProductCart(
             image = "asdasd",
@@ -80,7 +84,8 @@ fun PopularScreen(navController: NavController) {
             inCart = false,
             status = "Best Seller",
             name = "Nike Air Max",
-            price = "752.00"
+            price = "752.00",
+            id = "123"
         )
     )
     Column() {
@@ -115,7 +120,7 @@ fun PopularScreen(navController: NavController) {
             verticalItemSpacing = 15.dp
         ) {
             items(list) {
-                Popular(it)
+                Popular(it, navController)
             }
         }
     }

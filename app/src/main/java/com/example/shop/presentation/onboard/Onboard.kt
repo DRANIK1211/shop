@@ -13,8 +13,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -26,7 +29,9 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.shop.domain.OnboardingViewModel
 import com.example.shop.presentation.home.HomeSc
 import com.example.shop.presentation.onboard.components.Onboard1
 import com.example.shop.presentation.onboard.components.Onboard2
@@ -39,6 +44,9 @@ object Onboard
 
 @Composable
 fun OnboardScreen(navController: NavController){
+
+
+
     var flag by remember { mutableIntStateOf(1) }
     Column(
         modifier = Modifier.fillMaxSize().background(

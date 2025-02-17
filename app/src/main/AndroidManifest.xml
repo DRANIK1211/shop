@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Base.SplashScreen"
         tools:targetApi="31"
-        android:name=".data.MyApplication"
         >
         <activity
             android:name=".presentation.MainActivity"

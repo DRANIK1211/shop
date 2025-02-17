@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -52,7 +54,8 @@ val popularCart = ProductCart(
     inCart = false,
     status = "Best Seller",
     name = "Nike Air Max",
-    price = "752.00"
+    price = "752.00",
+    id = "123"
 )
 val popularCart1 = ProductCart(
     image = "asdasd",
@@ -60,7 +63,8 @@ val popularCart1 = ProductCart(
     inCart = true,
     status = "Best Seller",
     name = "Nike Air Max",
-    price = "752.00"
+    price = "752.00",
+    id = "123"
 )
 
 @Serializable
@@ -70,7 +74,7 @@ data object HomeSc
 fun HomeScreen(navController: NavController){
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, bottom = 30.dp).verticalScroll(
+        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, bottom = 100.dp).verticalScroll(
             state = rememberScrollState()
         )
     ) {
@@ -242,10 +246,10 @@ fun HomeScreen(navController: NavController){
             modifier = Modifier.fillMaxWidth().padding(top=30.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ){
-            Popular(popularCart)
-            Popular(popularCart1)
+            Popular(popularCart, navController)
+            Popular(popularCart1, navController)
         }
-//asd
+
         Row(
             modifier = Modifier.fillMaxWidth().padding(top=29.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -275,6 +279,10 @@ fun HomeScreen(navController: NavController){
             contentScale = ContentScale.FillWidth
         )
     }
+
+
+
+
 
 }
 

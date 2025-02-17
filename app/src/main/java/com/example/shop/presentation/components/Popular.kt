@@ -2,6 +2,7 @@ package com.example.shop.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 
 
@@ -35,23 +38,27 @@ data class ProductCart(
     val inCart: Boolean,
     val status: String,
     val name: String,
-    val price: String
+    val price: String,
+    val id: String
 )
 
 @Composable
-fun Popular(cart: ProductCart){
+fun Popular(cart: ProductCart, navController: NavController){
     Card (
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = Modifier.width(150.dp)//.height(182.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(16.dp))),
-        //verticalArrangement = Arrangement.SpaceBetween,
+            .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(16.dp))).clickable {
+                val st = "Details/" + cart.id
+                navController.navigate(st)
+            }
 
     ){
         Column(
             modifier = Modifier.padding(top = 9.dp, start = 9.dp, end = 9.dp)
         ) {
             Image(
-                imageVector = ImageVector.vectorResource(R.drawable.favorite),
+                imageVector = if(cart.favorites) ImageVector.vectorResource(R.drawable.favbotinfav)
+                else ImageVector.vectorResource(R.drawable.favorite),
                 contentDescription = null
             )
             Image(
@@ -116,7 +123,9 @@ fun PopularPreview(){
             inCart = false,
             status = "Best Seller",
             name = "Nike Air Max",
-            price = "752.00"
-        )
+            price = "752.00",
+            id = "123"
+        ),
+        navController = rememberNavController()
     )
 }

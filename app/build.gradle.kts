@@ -78,5 +78,9 @@ dependencies {
     implementation(platform("io.github.jan-tennert.supabase:bom:3.1.1"))
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
     implementation("io.ktor:ktor-client-android:3.0.3")
-    implementation("androidx.datastore:datastore-preferences:1.1.2")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore:1.0.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0") // или последняя версия
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0") // или последняя версия
 }
