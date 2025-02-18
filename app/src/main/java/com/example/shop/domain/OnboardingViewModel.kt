@@ -5,11 +5,32 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shop.data.PreferencesManager
+import com.example.shop.data.SettingsDataStoreService
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 
+class OnboardingViewModel(application: Application) : AndroidViewModel(application) {
 
-class OnboardingViewModel(private val preferencesManager: PreferencesManager) : ViewModel() {
+
+    private val dataStore = SettingsDataStoreService(application)
+
+    val onboardStat = dataStore.getOnboard()
+    fun clear() {
+        viewModelScope.launch {
+            dataStore.setOne()
+        }
+    }
+
+    fun incOnboard() {
+        viewModelScope.launch {
+            var num = onboardStat.firstOrNull()
+            if (num == null) num = 1
+            dataStore.saveOnboard(num + 1)
+        }
+
+    }
 
 
 }

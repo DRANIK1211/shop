@@ -1,5 +1,6 @@
 package com.example.shop.presentation.onboard
 
+import android.app.Application
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -44,10 +45,11 @@ object Onboard
 
 @Composable
 fun OnboardScreen(navController: NavController){
+    val viewModelOnboard :OnboardingViewModel = viewModel<OnboardingViewModel>()
+    val flag = viewModelOnboard.onboardStat.collectAsState(1)
 
 
 
-    var flag by remember { mutableIntStateOf(1) }
     Column(
         modifier = Modifier.fillMaxSize().background(
             brush = Brush.verticalGradient(
@@ -61,35 +63,25 @@ fun OnboardScreen(navController: NavController){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        when(flag){
+        when(flag.value){
             1 -> {
                 Onboard1()
             }
             2 -> {
                 Onboard2()
+
             }
             3 -> {
                 Onboard3()
             }
             else -> {
-
+                navController.navigate(HomeSc)
             }
         }
-        //Onboard1()
 
         Button(
             onClick = {
-                when(flag){
-                    1 -> {
-                        flag = 2
-                    }
-                    2 -> {
-                        flag = 3
-                    }
-                    3 -> {
-                        navController.navigate(HomeSc)
-                    }
-                }
+                viewModelOnboard.incOnboard()
             },
             modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally)
                 .padding(bottom = 36.dp, start = 20.dp, end = 20.dp)
@@ -104,7 +96,7 @@ fun OnboardScreen(navController: NavController){
 
         ) {
             Text(
-                text = if(flag == 1)"Начать" else "Далее",
+                text = if(flag.value == 1)"Начать" else "Далее",
                 color = Color(43, 43, 43),
                 fontSize = 14.sp,
                 fontWeight = FontWeight(400)
