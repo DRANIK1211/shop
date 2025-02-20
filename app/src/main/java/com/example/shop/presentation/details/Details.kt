@@ -66,6 +66,10 @@ fun DetailsScreen(navController: NavController, id: String) {
         inCart = false
     )
 
+    val stateFav = remember { mutableStateOf(detailsProduct.favorite) }
+    val stateCart = remember { mutableStateOf(detailsProduct.inCart) }
+
+
     Column {
 
         Column(
@@ -212,22 +216,34 @@ fun DetailsScreen(navController: NavController, id: String) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 20.dp, end = 20.dp)
+            modifier = Modifier.padding(start = 20.dp, end = 20.dp).fillMaxWidth()
         ) {
+            val im = if(stateFav.value)
+                painterResource(R.drawable.favbotinfav)
+            else painterResource(R.drawable.favorite101)
             Image(
-                painter = painterResource(R.drawable.favorite101),
+                painter = im,
                 contentDescription = null,
-                modifier = Modifier.height(52.dp).width(52.dp)
+                modifier = Modifier.height(52.dp).width(52.dp).clickable {
+                    if(stateFav.value)
+                        stateFav.value = false
+                    else
+                        stateFav.value = true
+                }
             )
             IconButton(
                 onClick = {
-
+                    if(stateCart.value)
+                        stateCart.value = false
+                    else
+                        stateCart.value = true
                 },
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = Color(72, 178, 231),
                     disabledContainerColor = Color(72, 178, 231)
                 ),
-                modifier = Modifier.height(52.dp).width(265.dp).border(width = 10.dp, shape = RoundedCornerShape(12.dp), color = Color(72, 178, 231)),
+                modifier = Modifier.border(width = 10.dp, shape = RoundedCornerShape(12.dp),
+                    color = Color(72, 178, 231)).height(52.dp).width(245.dp),
 
             ) {
                 Box(
@@ -240,7 +256,7 @@ fun DetailsScreen(navController: NavController, id: String) {
                         modifier = Modifier.width(52.dp).height(52.dp).align(Alignment.CenterStart)
                     )
                     Text(
-                        text = "В корзину",
+                        text = if(!stateCart.value)"В корзину" else "Добавлено",
                         fontSize = 14.sp,
                         fontWeight = FontWeight(400),
                         color = Color.White
