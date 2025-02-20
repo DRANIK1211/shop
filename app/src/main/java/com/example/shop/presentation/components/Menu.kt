@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -22,10 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.shop.R
+import com.example.shop.presentation.mycart.MyCartSc
 import com.example.shop.presentation.favorites.FavoriteSc
-import com.example.shop.presentation.favorites.FavoriteScreen
 import com.example.shop.presentation.home.HomeSc
-import com.example.shop.presentation.popular.PopularSc
 import com.example.shop.presentation.theme.ShopTheme
 
 @Composable
@@ -54,7 +52,7 @@ fun Menu(modifier: Modifier, navController: NavController, flag: Int) {
                 imageVector = ImageVector.vectorResource(R.drawable.incart2),
                 contentDescription = null,
                 modifier = Modifier.height(65.dp).width(65.dp).clickable {
-
+                    navController.navigate(MyCartSc)
                 }
 
             )

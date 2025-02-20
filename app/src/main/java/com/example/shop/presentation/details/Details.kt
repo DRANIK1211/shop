@@ -17,8 +17,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
@@ -27,7 +25,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -38,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.shop.R
+import com.example.shop.presentation.mycart.MyCartSc
 import com.example.shop.presentation.home.HomeSc
 import kotlinx.serialization.Serializable
 
@@ -102,7 +100,9 @@ fun DetailsScreen(navController: NavController, id: String) {
                         contentDescription = null,
                         modifier = Modifier
                             .width(44.dp)
-                            .height(44.dp)
+                            .height(44.dp).clickable {
+                                navController.navigate(MyCartSc)
+                            }
                     )
                     Box(
                         Modifier
@@ -220,7 +220,8 @@ fun DetailsScreen(navController: NavController, id: String) {
         ) {
             val im = if(stateFav.value)
                 painterResource(R.drawable.favbotinfav)
-            else painterResource(R.drawable.favorite101)
+            else
+                painterResource(R.drawable.favorite101)
             Image(
                 painter = im,
                 contentDescription = null,

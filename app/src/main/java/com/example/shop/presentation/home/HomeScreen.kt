@@ -13,9 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -42,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.shop.R
-import com.example.shop.presentation.catalog.CatalogSc
+import com.example.shop.presentation.mycart.MyCartSc
 import com.example.shop.presentation.components.Popular
 import com.example.shop.presentation.components.ProductCart
 import com.example.shop.presentation.popular.PopularSc
@@ -98,7 +96,9 @@ fun HomeScreen(navController: NavController){
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.basket),
                     contentDescription = null,
-                    modifier = Modifier.width(44.dp).height(44.dp)
+                    modifier = Modifier.width(44.dp).height(44.dp).clickable {
+                        navController.navigate(MyCartSc)
+                    }
                 )
                 Box(Modifier.background(Color.Red, shape = CircleShape).align(Alignment.TopEnd).size(8.dp,8.dp))
             }

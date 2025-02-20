@@ -16,15 +16,15 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.shop.presentation.catalog.CatalogSc
 import com.example.shop.presentation.catalog.CatalogScreen
-import com.example.shop.presentation.catalog.CatalogScreenPreview
 import com.example.shop.presentation.components.Menu
 import com.example.shop.presentation.details.DetailsScreen
 import com.example.shop.presentation.favorites.FavoriteSc
 import com.example.shop.presentation.favorites.FavoriteScreen
 import com.example.shop.presentation.home.HomeSc
 import com.example.shop.presentation.home.HomeScreen
+import com.example.shop.presentation.mycart.MyCartSc
+import com.example.shop.presentation.mycart.MyCartScreen
 import com.example.shop.presentation.onboard.Onboard
 import com.example.shop.presentation.onboard.OnboardScreen
 import com.example.shop.presentation.popular.PopularSc
@@ -78,6 +78,9 @@ class MainActivity : ComponentActivity() {
                             composable("Details/{flag}") { backStackEntry ->
                                 val param = backStackEntry.arguments?.getString("flag").toString()
                                 DetailsScreen(navController = navController, id = param)
+                            }
+                            composable<MyCartSc> {
+                                MyCartScreen(navController = navController)
                             }
                         }
 

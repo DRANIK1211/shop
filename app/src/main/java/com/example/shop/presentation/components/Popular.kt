@@ -16,10 +16,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -44,6 +47,8 @@ data class ProductCart(
 
 @Composable
 fun Popular(cart: ProductCart, navController: NavController){
+    var stateFav = remember { mutableStateOf(cart.favorites) }
+    var stateCart = remember { mutableStateOf(cart.inCart) }
     Card (
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = Modifier.width(150.dp)//.height(182.dp)
@@ -57,9 +62,15 @@ fun Popular(cart: ProductCart, navController: NavController){
             modifier = Modifier.padding(top = 9.dp, start = 9.dp, end = 9.dp)
         ) {
             Image(
-                imageVector = if(cart.favorites) ImageVector.vectorResource(R.drawable.favbotinfav)
+                imageVector = if(stateFav.value) ImageVector.vectorResource(R.drawable.favbotinfav)
                 else ImageVector.vectorResource(R.drawable.favorite),
-                contentDescription = null
+                contentDescription = null,
+                modifier = Modifier.height(28.dp).width(28.dp).clickable {
+                    if(stateFav.value)
+                        stateFav.value = false
+                    else
+                        stateFav.value = true
+                }
             )
             Image(
                 painter = painterResource(R.drawable.botinok),
@@ -98,12 +109,20 @@ fun Popular(cart: ProductCart, navController: NavController){
                 textAlign = TextAlign.End
             )
             var im = ImageVector.vectorResource(R.drawable.add)
-            if (cart.inCart == true){
+            if (stateCart.value == true)
                 im = ImageVector.vectorResource(R.drawable.incart)
-            }
+            else
+                im = ImageVector.vectorResource(R.drawable.add)
+
             Image(
                 imageVector = im,
-                contentDescription = null
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    if (stateCart.value)
+                        stateCart.value = false
+                    else
+                        stateCart.value = true
+                }
             )
         }
 
