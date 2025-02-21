@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,51 +30,52 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
+import com.example.shop.data.Boot
 
-
-data class ProductCart(
-    val image: String,
-    val favorites: Boolean,
-    val inCart: Boolean,
-    val status: String,
-    val name: String,
-    val price: String,
-    val id: String
-)
 
 @Composable
-fun Popular(cart: ProductCart, navController: NavController){
+fun BootItem(
+    cart: Boot,
+    onChangedFav: (id: String) -> Unit,
+    onChangedCart: (id: String) -> Unit,
+    onClick: (id: String) -> Unit
+) {
+
+
     var stateFav = remember { mutableStateOf(cart.favorites) }
-    var stateCart = remember { mutableStateOf(cart.inCart) }
-    Card (
+    var stateCart = remember { mutableStateOf(cart.count) }
+    Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        modifier = Modifier.width(150.dp)//.height(182.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(16.dp))).clickable {
-                val st = "Details/" + cart.id
-                navController.navigate(st)
+        modifier = Modifier
+            .width(150.dp)//.height(182.dp)
+            .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(16.dp)))
+            .clickable {
+
+                onClick(cart.id)
             }
 
-    ){
+    ) {
         Column(
             modifier = Modifier.padding(top = 9.dp, start = 9.dp, end = 9.dp)
         ) {
             Image(
-                imageVector = if(stateFav.value) ImageVector.vectorResource(R.drawable.favbotinfav)
+                imageVector = if (stateFav.value) ImageVector.vectorResource(R.drawable.favbotinfav)
                 else ImageVector.vectorResource(R.drawable.favorite),
                 contentDescription = null,
-                modifier = Modifier.height(28.dp).width(28.dp).clickable {
-                    if(stateFav.value)
-                        stateFav.value = false
-                    else
-                        stateFav.value = true
-                }
+                modifier = Modifier
+                    .height(28.dp)
+                    .width(28.dp)
+                    .clickable {
+                        onChangedFav(cart.id)
+                    }
             )
             Image(
                 painter = painterResource(R.drawable.botinok),
                 contentDescription = null,
-                modifier = Modifier.fillMaxWidth().height(70.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp)
             )
             Text(
                 text = cart.status,
@@ -94,7 +94,6 @@ fun Popular(cart: ProductCart, navController: NavController){
             )
 
 
-
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -109,7 +108,7 @@ fun Popular(cart: ProductCart, navController: NavController){
                 textAlign = TextAlign.End
             )
             var im = ImageVector.vectorResource(R.drawable.add)
-            if (stateCart.value == true)
+            if (stateCart.value > 0)
                 im = ImageVector.vectorResource(R.drawable.incart)
             else
                 im = ImageVector.vectorResource(R.drawable.add)
@@ -118,15 +117,10 @@ fun Popular(cart: ProductCart, navController: NavController){
                 imageVector = im,
                 contentDescription = null,
                 modifier = Modifier.clickable {
-                    if (stateCart.value)
-                        stateCart.value = false
-                    else
-                        stateCart.value = true
+                    onChangedCart(cart.id)
                 }
             )
         }
-
-
 
 
     }
@@ -134,17 +128,6 @@ fun Popular(cart: ProductCart, navController: NavController){
 
 @Preview
 @Composable
-fun PopularPreview(){
-    Popular(
-        ProductCart(
-            image = "asdasd",
-            favorites = false,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        ),
-        navController = rememberNavController()
-    )
+fun PopularPreview() {
+
 }

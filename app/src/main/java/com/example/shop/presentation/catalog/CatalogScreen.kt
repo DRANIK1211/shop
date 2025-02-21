@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,12 +17,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -34,17 +33,15 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
-import com.example.shop.presentation.components.Popular
-import com.example.shop.presentation.components.ProductCart
+import com.example.shop.domain.BaseViewModel
+import com.example.shop.presentation.components.BootItem
 import com.example.shop.presentation.home.HomeSc
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 
@@ -56,54 +53,11 @@ fun CatalogScreen(navController: NavController, flag: String) {
 
     var category = remember { mutableStateOf(flag) }
 
+    val viewModel: BaseViewModel = viewModel<BaseViewModel>()
+    val boots = viewModel.boots.collectAsState()
+    val catList = boots.value.filter { it.category == category.value }
 
-    var list = mutableListOf<ProductCart>(
-        ProductCart(
-            image = "asdasd",
-            favorites = false,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        ),
-        ProductCart(
-            image = "asdasd",
-            favorites = false,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        ),
-        ProductCart(
-            image = "asdasd",
-            favorites = false,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        ),
-        ProductCart(
-            image = "asdasd",
-            favorites = false,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        ),
-        ProductCart(
-            image = "asdasd",
-            favorites = false,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        )
-    )
+
     Column() {
         Box(
             modifier = Modifier
@@ -175,8 +129,20 @@ fun CatalogScreen(navController: NavController, flag: String) {
             horizontalArrangement = Arrangement.spacedBy(15.dp),
             verticalItemSpacing = 15.dp
         ) {
-            items(list) {
-                Popular(it, navController = navController)
+            items(catList) {
+                BootItem(it,
+                    onClick = { id->
+                        val st = "Details/" + id
+                        navController.navigate(st)
+                    },
+                    onChangedFav = {
+                        viewModel.
+                    },
+                    onChangedCart = {
+
+                    }
+
+                )
             }
         }
 

@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.shop.R
 import com.example.shop.presentation.mycart.MyCartSc
-import com.example.shop.presentation.components.Popular
+import com.example.shop.presentation.components.BootItem
 import com.example.shop.presentation.components.ProductCart
 import com.example.shop.presentation.popular.PopularSc
 import kotlinx.serialization.Serializable
@@ -246,8 +246,8 @@ fun HomeScreen(navController: NavController){
             modifier = Modifier.fillMaxWidth().padding(top=30.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ){
-            Popular(popularCart, navController)
-            Popular(popularCart1, navController)
+            BootItem(popularCart, navController)
+            BootItem(popularCart1, navController)
         }
 
         Row(

@@ -104,12 +104,7 @@ fun DetailsScreen(navController: NavController, id: String) {
                                 navController.navigate(MyCartSc)
                             }
                     )
-                    Box(
-                        Modifier
-                            .background(Color.Red, shape = CircleShape)
-                            .align(Alignment.TopEnd)
-                            .size(8.dp, 8.dp)
-                    )
+
                 }
             }
 
