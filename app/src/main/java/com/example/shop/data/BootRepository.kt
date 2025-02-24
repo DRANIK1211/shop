@@ -1,6 +1,5 @@
 package com.example.shop.data
 
-import androidx.compose.runtime.mutableStateListOf
 import kotlinx.coroutines.flow.MutableStateFlow
 
 data class Boot(
@@ -17,7 +16,7 @@ data class Boot(
     var category: String
 )
 
-enum class Category{
+enum class Category {
     Tennis,
     Outdoor,
     Running
@@ -26,7 +25,7 @@ enum class Category{
 
 object BootRepository {
 
-    val boots:List<Boot> = mutableStateListOf(
+    private val _boots: List<Boot> = mutableListOf(
         Boot(
             image = "https://e-mm.ru/files/holder/88/b9/88b964d885bdf258c166a5a1423c9db0.jpg",
             favorites = false,
@@ -118,28 +117,25 @@ object BootRepository {
         ),
 
 
-    )
+        )
 
-    fun setFav(id:String){
-        var item = boots.find { it.id == id }
-        item?.favorites = true
-    }
-    fun setUnFav(id:String){
-        var item = boots.find { it.id == id }
-        item?.favorites = false
+    val boots = MutableStateFlow(_boots)
+
+    fun setFav(id: String) {
+        var item = _boots.find { it.id == id }
+        var st = item?.favorites ?: false
+        item?.favorites = !st
     }
 
-    fun ing(id:String){
-        var item = boots.find { it.id == id }
+    fun setCart(id: String) {
+        var item = _boots.find { it.id == id }
         item?.count = item?.count!! + 1
     }
 
-    fun dec(id:String){
-        var item = boots.find { it.id == id }
+    fun dec(id: String) {
+        var item = _boots.find { it.id == id }
         item?.count = item?.count!! - 1
     }
-
-
 
 
 }

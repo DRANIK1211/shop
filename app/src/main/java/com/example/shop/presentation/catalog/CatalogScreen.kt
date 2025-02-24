@@ -136,7 +136,6 @@ fun CatalogScreen(navController: NavController, flag: String) {
                         navController.navigate(st)
                     },
                     onChangedFav = {
-                        viewModel.
                     },
                     onChangedCart = {
 

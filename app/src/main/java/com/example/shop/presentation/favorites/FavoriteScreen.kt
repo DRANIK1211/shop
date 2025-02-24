@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -21,10 +23,12 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.shop.R
+import com.example.shop.data.Boot
+import com.example.shop.domain.BaseViewModel
 import com.example.shop.presentation.components.BootItem
-import com.example.shop.presentation.components.ProductCart
 import com.example.shop.presentation.home.HomeSc
 import kotlinx.serialization.Serializable
 
@@ -34,53 +38,10 @@ data object FavoriteSc
 @Composable
 fun FavoriteScreen(navController: NavController){
 
-    var list = mutableListOf<ProductCart>(
-        ProductCart(
-            image = "asdasd",
-            favorites = true,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        ),
-        ProductCart(
-            image = "asdasd",
-            favorites = true,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        ),
-        ProductCart(
-            image = "asdasd",
-            favorites = true,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        ),
-        ProductCart(
-            image = "asdasd",
-            favorites = true,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        ),
-        ProductCart(
-            image = "asdasd",
-            favorites = true,
-            inCart = false,
-            status = "Best Seller",
-            name = "Nike Air Max",
-            price = "752.00",
-            id = "123"
-        )
-    )
+    val viewModel: BaseViewModel = viewModel<BaseViewModel>()
+    val boots = viewModel.boots.collectAsState()
+    val catList = boots.value.filter { it.favorites == true }
+
     Column(
         Modifier.padding(bottom = 100.dp)
     ) {
@@ -114,8 +75,20 @@ fun FavoriteScreen(navController: NavController){
             horizontalArrangement = Arrangement.spacedBy(15.dp),
             verticalItemSpacing = 15.dp
         ) {
-            items(list) {
-                BootItem(it, navController)
+            items(catList) {
+                BootItem(
+                    it,
+                    onChangedCart = {
+                        viewModel.add(id = it)
+                    },
+                    onChangedFav = {
+                        viewModel.setFav(id = it)
+                    },
+                    onClick = {
+                        val st = "Details/" + it
+                        navController.navigate(st)
+                    }
+                )
             }
         }
     }

@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -22,10 +24,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.shop.R
+import com.example.shop.data.Boot
+import com.example.shop.domain.BaseViewModel
 import com.example.shop.presentation.components.BootItem
-import com.example.shop.presentation.components.ProductCart
 import com.example.shop.presentation.home.HomeSc
 import kotlinx.serialization.Serializable
 
@@ -34,6 +38,10 @@ data object PopularSc
 
 @Composable
 fun PopularScreen(navController: NavController) {
+
+    val viewModel: BaseViewModel = viewModel<BaseViewModel>()
+    val boots = viewModel.boots.collectAsState()
+    val catList = boots.value
 
     Column() {
         Row(
@@ -66,8 +74,20 @@ fun PopularScreen(navController: NavController) {
             horizontalArrangement = Arrangement.spacedBy(15.dp),
             verticalItemSpacing = 15.dp
         ) {
-            items(list) {
-                BootItem(it, navController)
+            items(catList) {itt: Boot ->
+                BootItem(
+                    itt,
+                    onChangedCart = {
+                        viewModel.add(id = itt.id)
+                    },
+                    onChangedFav = {
+                        viewModel.setFav(id = itt.id)
+                    },
+                    onClick = {
+                        val st = "Details/" + itt.id
+                        navController.navigate(st)
+                    }
+                )
             }
         }
     }

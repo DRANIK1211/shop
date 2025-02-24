@@ -15,21 +15,24 @@ import kotlinx.coroutines.launch
 class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
 
-    private val _boots = MutableStateFlow<List<Boot>>(BootRepository.boots)
-    val boots = _boots.asStateFlow()
+    val boots = BootRepository.boots.asStateFlow()
 
 
     fun add(id: String){
-        BootRepository.ing(id)
+        BootRepository.setCart(id)
+        updateFlow()
     }
     fun subtract(id: String){
         BootRepository.dec(id)
+        updateFlow()
     }
-    fun saveFav(id: String){
-        BootRepository.setFav(id)
+    fun setFav(id: String){
+        BootRepository.setFav(id = id)
+        updateFlow()
     }
-    fun unSaveFav(id: String){
-        BootRepository.setUnFav(id)
+
+    private fun updateFlow(){
+        //_boots.value = BootRepository.boots
     }
 
 

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -23,6 +24,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -38,43 +40,31 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.shop.R
+import com.example.shop.domain.BaseViewModel
 import com.example.shop.presentation.mycart.MyCartSc
 import com.example.shop.presentation.components.BootItem
-import com.example.shop.presentation.components.ProductCart
 import com.example.shop.presentation.popular.PopularSc
 import kotlinx.serialization.Serializable
 
-val popularCart = ProductCart(
-    image = "asdasd",
-    favorites = false,
-    inCart = false,
-    status = "Best Seller",
-    name = "Nike Air Max",
-    price = "752.00",
-    id = "123"
-)
-val popularCart1 = ProductCart(
-    image = "asdasd",
-    favorites = false,
-    inCart = true,
-    status = "Best Seller",
-    name = "Nike Air Max",
-    price = "752.00",
-    id = "123"
-)
 
 @Serializable
 data object HomeSc
 
 @Composable
-fun HomeScreen(navController: NavController){
-
+fun HomeScreen(navController: NavController) {
+    val viewModel: BaseViewModel = viewModel<BaseViewModel>()
+    val boots = viewModel.boots.collectAsState()
+    val catList = boots.value
     Column(
-        modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, bottom = 100.dp).verticalScroll(
-            state = rememberScrollState()
-        )
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(start = 20.dp, end = 20.dp, bottom = 100.dp)
+            .verticalScroll(
+                state = rememberScrollState()
+            )
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -84,7 +74,9 @@ fun HomeScreen(navController: NavController){
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.hamburger),
                 contentDescription = null,
-                modifier = Modifier.width(26.dp).height(18.dp)
+                modifier = Modifier
+                    .width(26.dp)
+                    .height(18.dp)
             )
             Text(
                 text = "Главная",
@@ -92,29 +84,41 @@ fun HomeScreen(navController: NavController){
                 fontWeight = FontWeight(400),
                 color = Color(43, 43, 43)
             )
-            Box(){
+            Box() {
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.basket),
                     contentDescription = null,
-                    modifier = Modifier.width(44.dp).height(44.dp).clickable {
-                        navController.navigate(MyCartSc)
-                    }
+                    modifier = Modifier
+                        .width(44.dp)
+                        .height(44.dp)
+                        .clickable {
+                            navController.navigate(MyCartSc)
+                        }
                 )
-                Box(Modifier.background(Color.Red, shape = CircleShape).align(Alignment.TopEnd).size(8.dp,8.dp))
+                Box(
+                    Modifier
+                        .background(Color.Red, shape = CircleShape)
+                        .align(Alignment.TopEnd)
+                        .size(8.dp, 8.dp)
+                )
             }
 
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(top=21.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 21.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             val search = remember { mutableStateOf("") }
             OutlinedTextField(
                 value = search.value,
-                onValueChange = {search.value = it},
-                modifier = Modifier.width(269.dp).height(52.dp)
+                onValueChange = { search.value = it },
+                modifier = Modifier
+                    .width(269.dp)
+                    .height(52.dp)
                     .clip(
                         shape = RoundedCornerShape(corner = CornerSize(14.dp))
                     ),
@@ -137,35 +141,46 @@ fun HomeScreen(navController: NavController){
                         text = "Поиск",
                         color = Color(106, 106, 106),
                         fontSize = 12.sp,
-                        fontWeight = FontWeight(400))
+                        fontWeight = FontWeight(400)
+                    )
                 }
             )
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.filters),
                 contentDescription = null,
-                Modifier.height(52.dp).width(52.dp),
+                Modifier
+                    .height(52.dp)
+                    .width(52.dp),
             )
         }
 
         Column(
-            modifier = Modifier.fillMaxWidth().padding(top = 22.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 22.dp)
         ) {
             Text(
                 text = "Категории",
                 fontSize = 16.sp,
                 fontWeight = FontWeight(400),
 
-            )
+                )
 
             LazyRow(
-                Modifier.padding(top=19.dp, bottom = 24.dp)
-            ){
+                Modifier.padding(top = 19.dp, bottom = 24.dp)
+            ) {
                 item {
                     Box(
-                        modifier = Modifier.height(40.dp).width(108.dp).clickable {
-                            navController.navigate("CatalogSc/Все")
-                        }
-                            .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(8.dp))),
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(108.dp)
+                            .clickable {
+                                navController.navigate("CatalogSc/Все")
+                            }
+                            .background(
+                                color = Color.White,
+                                shape = RoundedCornerShape(corner = CornerSize(8.dp))
+                            ),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
@@ -175,12 +190,19 @@ fun HomeScreen(navController: NavController){
                         )
                     }
                     Box(
-                        modifier = Modifier.height(40.dp).width(134.dp).padding(start = 16.dp).clickable {
-                            navController.navigate("CatalogSc/Outdoor")
-                        }
-                            .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(8.dp))),
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(134.dp)
+                            .padding(start = 16.dp)
+                            .clickable {
+                                navController.navigate("CatalogSc/Outdoor")
+                            }
+                            .background(
+                                color = Color.White,
+                                shape = RoundedCornerShape(corner = CornerSize(8.dp))
+                            ),
                         contentAlignment = Alignment.Center
-                    ){
+                    ) {
                         Text(
                             text = "Outdoor",
                             fontSize = 12.sp,
@@ -188,12 +210,19 @@ fun HomeScreen(navController: NavController){
                         )
                     }
                     Box(
-                        modifier = Modifier.height(40.dp).width(134.dp).padding(start = 16.dp).clickable {
-                            navController.navigate("CatalogSc/Tennis")
-                        }
-                            .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(8.dp))),
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(134.dp)
+                            .padding(start = 16.dp)
+                            .clickable {
+                                navController.navigate("CatalogSc/Tennis")
+                            }
+                            .background(
+                                color = Color.White,
+                                shape = RoundedCornerShape(corner = CornerSize(8.dp))
+                            ),
                         contentAlignment = Alignment.Center
-                    ){
+                    ) {
                         Text(
                             text = "Tennis",
                             fontSize = 12.sp,
@@ -201,12 +230,19 @@ fun HomeScreen(navController: NavController){
                         )
                     }
                     Box(
-                        modifier = Modifier.height(40.dp).width(134.dp).padding(start = 16.dp).clickable {
-                            navController.navigate("CatalogSc/Running")
-                        }
-                            .background(color = Color.White, shape = RoundedCornerShape(corner = CornerSize(8.dp))),
+                        modifier = Modifier
+                            .height(40.dp)
+                            .width(134.dp)
+                            .padding(start = 16.dp)
+                            .clickable {
+                                navController.navigate("CatalogSc/Running")
+                            }
+                            .background(
+                                color = Color.White,
+                                shape = RoundedCornerShape(corner = CornerSize(8.dp))
+                            ),
                         contentAlignment = Alignment.Center
-                    ){
+                    ) {
                         Text(
                             text = "Running",
                             fontSize = 12.sp,
@@ -229,7 +265,7 @@ fun HomeScreen(navController: NavController){
                 fontSize = 16.sp,
                 fontWeight = FontWeight(400),
 
-            )
+                )
             Text(
                 text = "Все",
                 fontSize = 12.sp,
@@ -242,16 +278,59 @@ fun HomeScreen(navController: NavController){
 
         }
 
-        Row (
-            modifier = Modifier.fillMaxWidth().padding(top=30.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            BootItem(popularCart, navController)
-            BootItem(popularCart1, navController)
+//        Row (
+//            modifier = Modifier.fillMaxWidth().padding(top=30.dp),
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ){
+//            BootItem(
+//                catList[0],
+//                onChangedCart = {
+//                    viewModel.add(id = catList[0].id)
+//                },
+//                onChangedFav = {
+//                    viewModel.setFav(id = catList[0].id)
+//                },
+//                onClick = {
+//                    val st = "Details/" + catList[0].id
+//                    navController.navigate(st)
+//                }
+//            )
+//            BootItem(
+//                catList[1],
+//                onChangedCart = {
+//                    viewModel.add(id = catList[1].id)
+//                },
+//                onChangedFav = {
+//                    viewModel.setFav(id = catList[1].id)
+//                },
+//                onClick = {
+//                    val st = "Details/" + catList[1].id
+//                    navController.navigate(st)
+//                }
+//            )
+//        }
+        LazyRow {
+            items(items = boots.value.subList(0, 2)) {
+                BootItem(
+                    it,
+                    onChangedCart = {
+                        viewModel.add(id = it)
+                    },
+                    onChangedFav = {
+                        viewModel.setFav(id = it)
+                    },
+                    onClick = {
+                        val st = "Details/" + it
+                        navController.navigate(st)
+                    }
+                )
+            }
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(top=29.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 29.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
 
@@ -275,13 +354,12 @@ fun HomeScreen(navController: NavController){
         Image(
             painter = painterResource(R.drawable.special),
             contentDescription = null,
-            modifier = Modifier.fillMaxWidth().padding(top=20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
             contentScale = ContentScale.FillWidth
         )
     }
-
-
-
 
 
 }
@@ -289,5 +367,5 @@ fun HomeScreen(navController: NavController){
 
 @Preview(showSystemUi = true, device = Devices.PIXEL_4)
 @Composable
-fun HomeScreenPreview(){
+fun HomeScreenPreview() {
 }
